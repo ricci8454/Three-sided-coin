@@ -21,17 +21,15 @@ Inv = inv
 Isnan = isnan
 Isinf = isinf
 
-ga = 1.9  # coefficient of restitution
-mu = 0.5  # friction coefficient
-R = 0.0125  # radius of circular base
-rho = 1165  # density
-g = 9.807  # gravitational accelleration
-
-NOV = 5  # number of values in error computation and plot for each variable
-NORec = 25  # number of rectangles in riemann sum
-conditionBounds = [0.2, Pi / 2 - 0.35, 0.1, 0.85, 0.1, 0.9, 0.01, 0.05, 250,
-                   2500]  # boundaries for error computation and plot for each variable, as in [crth_min, crth_max, ga_min ...]
-errors = 0  # if anything went wrong
+# ga = coefficient of restitution
+# mu = friction coefficient
+# R = radius of circular base
+# rho = density
+# g = gravitational accelleration
+# NOV = number of values in error computation and plot for each variable
+# NORec = number of rectangles in riemann sum
+#conditionBounds = boundaries for error computation and plot for each variable, as in [crth_min, crth_max, ga_min ...]
+# errors = number of times anything went wrong
 
 
 def vol(th, interval, crth, ga, mu, R, rho):  # computes one rectangle in the riemann sum for the given conditions
@@ -106,8 +104,6 @@ def evaluate(crth, ga, mu, R, rho, NORec):  # evaluates the probability of edge 
             errors += 1
 
     totalvol += vole
-    # if abs(vole/totalvol - 1 / 3) < 0.008:
-    # print(crth, vole/totalvol)
     return vole / totalvol
 
 
@@ -200,65 +196,5 @@ def twoDPlot(index, minval, maxval, array, NOV, NORec):
     return outputArray
 
 
-'''
-    for crth in Linspace(0.125, Pi / 2 - 0.125, num=NOV):  # creates an array of points on the curve
-        for rho in Linspace(100, 1000, num=NOV):
-            result = evaluate(crth, ga, mu, R, rho, NORec)
-            outputArray.append([crth, rho, result])
-            outputArrayErrors.append([crth, rho, result - paperModel(crth)])
-    return outputArray
-
-def createLinspace(index, cb, NOV):
-    return Linspace(cb[2 * index], cb[2 * index + 1], num=NOV)
-'''
-
-
-# print("Maximal Error: ", maxError(conditionBounds, NOV))
-# print(evaluate(0.4427, 0.9, 0.7, 0.016, 2500))
-
-
 def paperModel(crth):
     return (crth - Sin(crth)) / (Pi / 2 - Sin(crth) - Cos(crth))
-
-
-'''
-fig, ax = plt.subplots()
-
-xArray1 = [0.3385, 0.47, 0.5256, 0.6987]
-yArray1 = [0.134, 0.31, 0.373, 0.721]
-yerr1 = [0.0366, 0.0438, 0.0392, 0.0493]
-xArray2 = [0.3385, 0.47, 0.5256, 0.6987]
-yArray2 = [0.164, 0.337, 0.424, 0.671]
-yerr2 = [0.0395, 0.0447, 0.04, 0.0516]
-xArray = []
-yArray = []
-
-plt.scatter(xArray, yArray)
-ax.set_xlabel(r'$\theta_c$', fontsize=15)
-ax.set_ylabel(r'$P_E$', fontsize=15)
-
-x2 = arange(2.0)
-y2 = 1/3 + x2 * 0
-ax.plot(x2, y2)
-plt.scatter(xArray1, yArray1, color="blue", label="Filled")
-plt.errorbar(xArray1, yArray1, yerr=yerr1)
-plt.scatter(xArray2, yArray2, color="orange", label="Hollow")
-plt.errorbar(xArray2, yArray2, yerr=yerr2)
-ax.hlines([1/3], 0, 1, transform=ax.get_yaxis_transform(), colors='r')
-plt.legend()
-plt.show()
-
-
-t = arange(0.0, 2.0, 0.01)
-s = 1 + Sin(2 * Pi * t)
-
-fig, ax = plt.subplots()
-ax.plot(t, s)
-
-ax.set(xlabel='critical angle θc', ylabel='Probability of edge PE',
-       title='Probability curve')
-ax.grid()
-
-fig.savefig("test.png")
-plt.show()
-'''
