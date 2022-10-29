@@ -2,9 +2,6 @@ from New_Model import *
 
 defaultPath = "C://Users//ricci//Desktop//SYPT//SYPT 2022//Data//Numerical Model Data"
 
-#print(variableError([0.15, 1.35, 0.1, 0.85, 0.1, 0.85, 0.001, 0.05, 500, 5000], 5, 5))
-
-
 def take_input(name, array):
     try:
         x, y = [float(s) for s in input("Enter minimal and maximal for the " + name + ": ").split()]
