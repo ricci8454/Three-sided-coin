@@ -1,6 +1,6 @@
-from New_Model import *
+from Computations import *
 
-defaultPath = "C://Users//ricci//Desktop//SYPT//SYPT 2022//Data//Numerical Model Data"
+defaultPath = "C://Users" #set default path for saved text files
 
 def take_input(name, array):
     try:
