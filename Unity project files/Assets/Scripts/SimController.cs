@@ -149,7 +149,7 @@ public class SimController : MonoBehaviour
             string output = " (";
             for (int i = 0; i < array.Length; i++){
                 switch(array[i]){
-                    case 0: output += "thickness";
+                    case 0: output += "critical angle";
                         break;
                     case 1: output += "mass";
                         break;
@@ -209,7 +209,7 @@ public class SimController : MonoBehaviour
                 }
             }          
             return result;
-        } /*(thicknessv[ind[0]], massv[ind[1]], ilvv[ind[4]], iavv[ind[5]], frictionv[ind[2]], anglev[ind[6]], heightv[ind[7]], bouncinessv[ind[3]]*/
+        } 
     }
 
 
@@ -236,10 +236,10 @@ public class SimController : MonoBehaviour
 
         if (thickness < 0.01f)
             thickness = 0.01f;
-        if (thickness > 10f)
-            thickness = 10f;
-        else if (thickness2 > 10f)
-            thickness = 10f;
+        if (thickness > 1.5f)
+            thickness = 1.5f;
+        else if (thickness2 > 1.5f)
+            thickness = 1.5f;
 
         mass = SaveLoadManager.LoadMass()[0];
         mass2 = SaveLoadManager.LoadMass()[1];
@@ -365,7 +365,7 @@ public class SimController : MonoBehaviour
         string text4 = bouncinessb ? "Range: [" + bounciness.ToString() + ", " + bounciness2.ToString() + "], Elements: " + bounciness3.ToString() : bounciness.ToString();
 
         ParamsText.text = string.Format(CultureInfo.InvariantCulture, 
-            "{0} total coin tosses, {1} per toss \n{10}s total time, {11}s per toss \nThickness: {2}\nMass: {3}\nFriction coefficient: {4}\nBounciness: {5}\nInitial linear velocity: {6}\nInitial angular velocity : {7}\nInitial angle: {8}\nInitial height: {9}",
+            "{0} total coin tosses, {1} per toss \n{10}s total time, {11}s per toss \nCritical angle: {2}\nMass: {3}\nFriction coefficient: {4}\nBounciness: {5}\nInitial linear velocity: {6}\nInitial angular velocity : {7}\nInitial angle: {8}\nInitial height: {9}",
            NOC, coins, text1, text2, text3, text4, text5, text6, text7, text8, (NOC + coins - 1)/coins * _waitTime, _waitTime);
         
              
@@ -572,7 +572,7 @@ public class SimController : MonoBehaviour
 
             coin.transform.position = new Vector2(0, CoinStates[i].height);
             coin.transform.rotation = Quaternion.Euler(0, 0, CoinStates[i].angle);
-            coin.transform.localScale = new Vector2(_coinDiameter, CoinStates[i].thickness * _coinDiameter * 0.5f); // 0.5 necessary because of cylinder default size
+            coin.transform.localScale = new Vector2(_coinDiameter, Mathf.Tan(CoinStates[i].thickness) * _coinDiameter * 0.5f); // 0.5 necessary because of cylinder default size
 
             placeholderMat = new PhysicsMaterial2D("PhysMat" + i);
             placeholderMat.friction = CoinStates[i].friction;
