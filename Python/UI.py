@@ -30,7 +30,7 @@ while True:
         break
     elif mode == 1:
         index = int(input("Variable to be plotted: 0 - critical angle [rad], 1 - COR, 2 - COF, 3 - radius [m], 4 - density [kg /m^3]: "))
-        minval, maxval = [float(s) for s in input("Minimal and maximal value of the index: ").split()]
+        minval, maxval = [float(s) for s in input("Minimal and maximal value of the selected variable: ").split()]
         array = [[float(s)] for s in input("Remaining values in correct order: ").split()]
         NOV = int(input("Number of values to be plotted: "))
         NORec = int(input("Number of rectangles in Riemann Sum: "))
